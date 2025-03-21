@@ -1,0 +1,50 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+---------------------------------------
+ENTITY multi IS
+	PORT(	clk	:IN	STD_LOGIC;
+			res,a:IN STD_LOGIC;
+			b :IN std_logic_vector(3 downto 0); 
+			prod:out std_logic_vector(7 downto 0);
+			clk_led : out std_logic
+			);
+END  multi;
+---------------------------------------
+ARCHITECTURE arch OF multi IS
+	signal s1,s2,s3,s4:std_logic;
+	signal mandi:std_logic_vector(3 downto 0);
+component basic_element is
+		PORT(	clk,res,a,b	:IN	STD_LOGIC;
+			q:	OUT	STD_LOGIC);
+	end component;
+
+component d_ff is
+		PORT(	clk	:IN	STD_LOGIC;
+			rst	:IN	STD_LOGIC;
+			d	:IN	STD_LOGIC;
+			q	:OUT STD_LOGIC);
+	
+end component;
+component shiftReg IS
+
+	PORT(	clk	:	IN	STD_LOGIC;
+			rst	:	IN	STD_LOGIC;
+			d 	:	IN	STD_LOGIC;
+			q_reg: 	OUT	STD_LOGIC_VECTOR(7 DOWNTO 0));
+END component;
+ 
+BEGIN
+clk_led <= clk;
+U1:d_ff port map(clk,res,mandi(3),s1);
+U2:basic_element port map(clk,res,mandi(2),s1,s2);
+U3:basic_element port map(clk,res,mandi(1),s2,s3);
+U4:basic_element port map(clk,res,mandi(0),s3,s4);
+U5:shiftReg port map (clk,res,s4,prod);
+mandi(0)<=a and b(0);
+mandi(1)<=a and b(1);
+mandi(2)<=a and b(2);
+mandi(3)<=a and b(3);
+
+
+
+END ARCHITECTURE ;

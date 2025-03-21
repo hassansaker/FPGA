@@ -1,0 +1,180 @@
+|multi
+clk => d_ff:U1.clk
+clk => basic_element:U2.clk
+clk => basic_element:U3.clk
+clk => basic_element:U4.clk
+clk => shiftReg:U5.clk
+clk => clk_led.DATAIN
+res => d_ff:U1.rst
+res => basic_element:U2.res
+res => basic_element:U3.res
+res => basic_element:U4.res
+res => shiftReg:U5.rst
+a => mandi[0].IN0
+a => mandi[1].IN0
+a => mandi[2].IN0
+a => mandi[3].IN0
+b[0] => mandi[0].IN1
+b[1] => mandi[1].IN1
+b[2] => mandi[2].IN1
+b[3] => mandi[3].IN1
+prod[0] <= shiftReg:U5.q_reg[0]
+prod[1] <= shiftReg:U5.q_reg[1]
+prod[2] <= shiftReg:U5.q_reg[2]
+prod[3] <= shiftReg:U5.q_reg[3]
+prod[4] <= shiftReg:U5.q_reg[4]
+prod[5] <= shiftReg:U5.q_reg[5]
+prod[6] <= shiftReg:U5.q_reg[6]
+prod[7] <= shiftReg:U5.q_reg[7]
+clk_led <= clk.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|multi|d_ff:U1
+clk => q~reg0.CLK
+rst => q~reg0.ACLR
+d => q~reg0.DATAIN
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|multi|basic_element:U2
+clk => d_ff:U1.clk
+clk => d_ff:U2.clk
+res => d_ff:U1.rst
+res => d_ff:U2.rst
+a => full_adder:U3.a
+b => full_adder:U3.b
+q <= d_ff:U2.q
+
+
+|multi|basic_element:U2|d_ff:U1
+clk => q~reg0.CLK
+rst => q~reg0.ACLR
+d => q~reg0.DATAIN
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|multi|basic_element:U2|d_ff:U2
+clk => q~reg0.CLK
+rst => q~reg0.ACLR
+d => q~reg0.DATAIN
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|multi|basic_element:U2|full_adder:U3
+a => s.IN0
+a => cout.IN0
+a => cout.IN0
+b => s.IN1
+b => cout.IN1
+b => cout.IN0
+cin => s.IN1
+cin => cout.IN1
+cin => cout.IN1
+s <= s.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|multi|basic_element:U3
+clk => d_ff:U1.clk
+clk => d_ff:U2.clk
+res => d_ff:U1.rst
+res => d_ff:U2.rst
+a => full_adder:U3.a
+b => full_adder:U3.b
+q <= d_ff:U2.q
+
+
+|multi|basic_element:U3|d_ff:U1
+clk => q~reg0.CLK
+rst => q~reg0.ACLR
+d => q~reg0.DATAIN
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|multi|basic_element:U3|d_ff:U2
+clk => q~reg0.CLK
+rst => q~reg0.ACLR
+d => q~reg0.DATAIN
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|multi|basic_element:U3|full_adder:U3
+a => s.IN0
+a => cout.IN0
+a => cout.IN0
+b => s.IN1
+b => cout.IN1
+b => cout.IN0
+cin => s.IN1
+cin => cout.IN1
+cin => cout.IN1
+s <= s.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|multi|basic_element:U4
+clk => d_ff:U1.clk
+clk => d_ff:U2.clk
+res => d_ff:U1.rst
+res => d_ff:U2.rst
+a => full_adder:U3.a
+b => full_adder:U3.b
+q <= d_ff:U2.q
+
+
+|multi|basic_element:U4|d_ff:U1
+clk => q~reg0.CLK
+rst => q~reg0.ACLR
+d => q~reg0.DATAIN
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|multi|basic_element:U4|d_ff:U2
+clk => q~reg0.CLK
+rst => q~reg0.ACLR
+d => q~reg0.DATAIN
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|multi|basic_element:U4|full_adder:U3
+a => s.IN0
+a => cout.IN0
+a => cout.IN0
+b => s.IN1
+b => cout.IN1
+b => cout.IN0
+cin => s.IN1
+cin => cout.IN1
+cin => cout.IN1
+s <= s.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|multi|shiftReg:U5
+clk => buffer_s[0].CLK
+clk => buffer_s[1].CLK
+clk => buffer_s[2].CLK
+clk => buffer_s[3].CLK
+clk => buffer_s[4].CLK
+clk => buffer_s[5].CLK
+clk => buffer_s[6].CLK
+clk => buffer_s[7].CLK
+rst => buffer_s[0].ACLR
+rst => buffer_s[1].ACLR
+rst => buffer_s[2].ACLR
+rst => buffer_s[3].ACLR
+rst => buffer_s[4].ACLR
+rst => buffer_s[5].ACLR
+rst => buffer_s[6].ACLR
+rst => buffer_s[7].ACLR
+d => buffer_s[7].DATAIN
+q_reg[0] <= buffer_s[0].DB_MAX_OUTPUT_PORT_TYPE
+q_reg[1] <= buffer_s[1].DB_MAX_OUTPUT_PORT_TYPE
+q_reg[2] <= buffer_s[2].DB_MAX_OUTPUT_PORT_TYPE
+q_reg[3] <= buffer_s[3].DB_MAX_OUTPUT_PORT_TYPE
+q_reg[4] <= buffer_s[4].DB_MAX_OUTPUT_PORT_TYPE
+q_reg[5] <= buffer_s[5].DB_MAX_OUTPUT_PORT_TYPE
+q_reg[6] <= buffer_s[6].DB_MAX_OUTPUT_PORT_TYPE
+q_reg[7] <= buffer_s[7].DB_MAX_OUTPUT_PORT_TYPE
+
+
