@@ -1,0 +1,63 @@
+LIBRARY ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use ieee.std_logic_unsigned.all;
+ENTITY multi IS
+    PORT(
+        clk   : IN std_logic;
+        res   : IN std_logic;
+        M, Q  : IN std_logic_vector(3 downto 0);
+        prod  : OUT std_logic_vector(7 downto 0)
+    );
+END multi;
+
+ARCHITECTURE arch OF multi IS
+    signal A,Ac         : std_logic_vector(3 downto 0); 
+    signal E,flag       : std_logic ; 	 
+    signal count     : integer := 4;                            
+    signal Q_reg     : std_logic_vector(3 downto 0);
+    signal sum     	 : std_logic_vector(4 downto 0);  
+
+
+	
+BEGIN
+	
+    PROCESS (clk, res)
+    BEGIN
+        IF res = '0' THEN
+            -- Reset all signals
+            A <= (others => '0');
+            Ac <= (others => '0');
+            E <= '0';
+            flag <='1';
+            count <= 4;
+            Q_reg <= Q;
+            
+        ELSIF rising_edge(clk) THEN
+            IF count > 0 THEN
+                IF Q_reg(0) = '1' THEN
+                
+				   if flag='1' then
+                   A <= sum(3 downto 0);
+                   E <= sum(4);
+                   end if;
+                   
+                END IF;
+				flag <=not flag;
+                 --Shift operation
+                IF flag='0' THEN
+                A(3)<=E;
+                A(2 downto 0) <= A(3 downto 1);
+                Q_reg(2 downto 0) <= Q_reg(3 downto 1);
+				Q_reg(3)<=A(0);
+				
+                count <= count - 1;		
+				END IF;
+            END IF;
+        END IF;  
+    END PROCESS;
+	 sum <= ('0'& A) + ('0'& M);
+     prod(7 downto 4) <= A;
+	 prod(3 downto 0) <= Q_reg;
+	 
+END ARCHITECTURE;
